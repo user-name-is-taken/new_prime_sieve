@@ -1,0 +1,63 @@
+from linked_dictionary import *
+import bisect
+import time
+    
+def new_sieve(p):
+    """this increments at the top of call down"""
+    s=linked_dict(range(2,p)) #s is a linked_dict!
+    v=2 #prime list index in s
+    srp=p**.5 #square root p
+    pot=p//2 #p over 2
+    tester=0
+    #k=input('enter to start function')
+    #start=time.clock()
+    while v<=pot:
+        if v>srp:
+            if tester!=1:
+                tester=1
+                sl=s.return_list()
+            n=((p//v)+1)
+            k=bisect.bisect(sl,n)
+            k=sl[k] #maybe k=sl[k+1] but I think I'm good
+            s=call_down(k,v,s)
+        else:
+            s=call_down(v,v,s)
+        v=s.get_next(v)
+    #stop=time.clock()
+    #t=abs((start-stop))
+    #print("timer=",t)
+    
+    return s.return_list()
+        
+def call_down(v,d,s):
+    """v is the top iterator you're currently on
+and the number d which is the number being deleted after it is multiplied,
+s which is the linked_list of primes,
+and returns s
+starts at the bottom and goes up to s[pli]
+so call it from the highest known prime multiple s[pli] < srp
+all numbers less than pli need to be primes"""
+    e=False
+    while True:
+        try:
+            try:
+                s=call_down(s.get_previous(v),d,s)
+            except:
+                pass
+            d*=v #this may require more multiplications than the other sieve.
+            s.remove_by_value(d) #this list is sorted. maybe a search would be faster.
+        except: #if d not in s
+            return(s)
+
+def tester(k):
+    z=0
+    for i in k:
+        for g in range(z):
+            if i/k[g]==int(i/k[g]):
+                print(i)
+        z+=1
+def timer(p):
+	start=time.clock()
+	l=new_sieve(p)
+	stop=time.clock()
+	return (abs(start-stop))
