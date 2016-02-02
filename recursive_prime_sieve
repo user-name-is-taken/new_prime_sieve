@@ -8,20 +8,19 @@ def new_sieve(p):
     v=2 #prime list index in s
     srp=p**.5 #square root p
     pot=p//2 #p over 2
-    tester=0
-    #k=input('enter to start function')
+    tester=True
     #start=time.clock()
     while v<=pot:
         if v>srp:
-            if tester!=1:
-                tester=1
+            if tester==True:
+                tester=False
                 sl=s.return_list()
             n=((p//v)+1)
             k=bisect.bisect(sl,n)
             k=sl[k] #maybe k=sl[k+1] but I think I'm good
-            s=call_down(k,v,s)
+            call_down(k,v,s)
         else:
-            s=call_down(v,v,s)
+            call_down(v,v,s)
         v=s.get_next(v)
     #stop=time.clock()
     #t=abs((start-stop))
@@ -32,22 +31,22 @@ def new_sieve(p):
 def call_down(v,d,s):
     """v is the top iterator you're currently on
 and the number d which is the number being deleted after it is multiplied,
-s which is the linked_list of primes,
-and returns s
-starts at the bottom and goes up to s[pli]
-so call it from the highest known prime multiple s[pli] < srp
-all numbers less than pli need to be primes"""
+s which is the linked_dict of primes,
+when it hits a number not in s it returns nothing.
+starts at the bottom (2) and goes up to v
+so call it from the highest known prime multiple v < srp
+all numbers less than v need to be primes"""
     e=False
     while True:
         try:
             try:
-                s=call_down(s.get_previous(v),d,s)
+                call_down(s.get_previous(v),d,s)
             except:
                 pass
             d*=v #this may require more multiplications than the other sieve.
             s.remove_by_value(d) #this list is sorted. maybe a search would be faster.
         except: #if d not in s
-            return(s)
+            break
 
 def tester(k):
     z=0
