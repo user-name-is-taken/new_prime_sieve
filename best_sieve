@@ -1,0 +1,40 @@
+from linked_dict import *
+import math
+import time
+
+def sieve(p):
+    """this code works for all numbers except the squares of numbers whose
+squares are less than p. They can be removed posthumanisly
+
+this performs no extra executions.
+
+This would be faster with a better linked_dict._make_d(al) implementation"""
+    s=linked_dict(range(2,(p+1))) #this uses 2 seconds as of now. needs fixing.
+    i=2
+    srp=math.sqrt(p)
+    while i<=srp:
+        g=s.get_next(i) #was g=i
+        """
+        try:
+            while True: #was while g<stop, where stop =p/i; but this is better.
+                value=g*i 
+                s.remove_by_value(value)
+                g=s.get_next(g)
+
+                
+        except:
+            pass
+        i=s.get_next(i)
+
+    #this part deletes squares
+    k=list()
+    sr=2
+    sqr=sr**2
+    while sqr in s.d:
+        k.append(sqr)
+        sr=s.get_next(sr)
+        sqr=sr**2
+    for i in k:
+        s.remove_by_value(i)
+        
+    return s.return_list()
