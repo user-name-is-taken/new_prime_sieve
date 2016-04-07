@@ -2,14 +2,11 @@ from linked_dict import *
 import math
 import time
 
-def sieve(p):
-    """this code works for all numbers except the squares of numbers whose
-squares are less than p. They can be removed posthumanisly
-
-this performs no extra executions.
+def sieve_of_Lundquist(p):
+    """This code removes all numbers less than p that aren't prime it performs no extra executions.
 
 This would be faster with a better linked_dict._make_d(al) implementation"""
-    s=linked_dict(range(2,(p+1))) #this uses 2 seconds as of now. needs fixing.
+    s=linked_dict(range(2,(p+1))) #this uses a lot of time as of now.
     i=2
     srp=math.sqrt(p)
     while i<=srp:
@@ -26,7 +23,7 @@ This would be faster with a better linked_dict._make_d(al) implementation"""
             pass
         i=s.get_next(i)
 
-    #this part deletes squares
+    #this part deletes p**2n
     k=list()
     sr=2
     sqr=sr**2
