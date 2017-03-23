@@ -13,7 +13,7 @@ def sieve(n):
     return sorted(list(to_numbs(b)-squares_set(b)))
 
 def squares_set(ba):
-    """this returns a set of all primes**(2n).
+    """this returns a set of all primes**2.
 note 0**2==0, 1**2==1"""
     return {i**2 for i in range(int(len(ba)**.5)+1) if ba[i]}
 
