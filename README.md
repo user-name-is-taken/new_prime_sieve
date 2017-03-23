@@ -1,2 +1,3 @@
 # new_prime_sieve
-</br> This isn't as fast as I thought it would be
+</br> This finds all the prime numbers up to n using a strange pattern
+
