@@ -1,37 +1,24 @@
-from linked_dict import *
-import math
-import time
+import bitarray
+def sieve(n):
+    """bitarray sieve"""
+    b=bitarray.bitarray([1]*(n+1))
+    x=int(n**.5)+1
+    for k in range(2,x):
+        if b[k]:
+            f=k+1 #this line is indexing error
+            e=n//k +1 
+            for g in range(f,e):
+                if b[g]:
+                    b[g*k]=0    
+    return sorted(list(to_numbs(b)-squares_set(b)))
 
-def sieve_of_Lundquist(p):
-    """This code removes all numbers less than p that aren't prime it performs no extra executions.
+def squares_set(ba):
+    """this returns a set of all primes**(2n).
+note 0**2==0, 1**2==1"""
+    return {i**2 for i in range(int(len(ba)**.5)+1) if ba[i]}
 
-This would be faster with a better linked_dict._make_d(al) implementation"""
-    s=linked_dict(range(2,(p+1))) #this uses a lot of time as of now.
-    i=2
-    srp=math.sqrt(p)
-    while i<=srp:
-        g=s.get_next(i) #was g=i
-        """
-        try:
-            while True: #was while g<stop, where stop =p/i; but this is better.
-                value=g*i 
-                s.remove_by_value(value)
-                g=s.get_next(g)
-
-                
-        except:
-            pass
-        i=s.get_next(i)
-
-    #this part deletes p**2n
-    k=list()
-    sr=2
-    sqr=sr**2
-    while sqr in s.d:
-        k.append(sqr)
-        sr=s.get_next(sr)
-        sqr=sr**2
-    for i in k:
-        s.remove_by_value(i)
-        
-    return s.return_list()
+def to_numbs(b_ar):
+    """converts the bit array to a set of numbers"""
+    return {i for i in range(len(b_ar)) if b_ar[i]}
+if __name__=="__main__":
+    print(sieve(100))
